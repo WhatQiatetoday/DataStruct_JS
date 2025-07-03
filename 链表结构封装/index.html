@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单链表</title>
+</head>
+
+<body>
+    <script>
+        class ListNode {
+            constructor(value) {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        class linkedList {
+            constructor() {
+                this.head = null;
+                this.size = 0;
+            }
+            // 向链表尾部添加一个新的项
+            // append(element) 
+            append(element) {
+                let node = new ListNode(element);
+                if (this.head == null) {
+                    this.head = node;
+                } else {
+                    let current = this.head;
+                    while (current.next) {
+                        current = current.next;
+                    }
+                    current.next = node;
+                }
+                this.size++;
+            }
+
+            // 向链表的特定位置插入一个新的项
+            // insert(position, element)
+
+            // 获取对应位置的元素
+            // get(position)
+
+            // 返回元素在链表中的索引,如果链表中没有元素返回-1
+            // indexOf(element)
+
+            // 修改某个位置的元素
+            // update(position, element)
+
+            // 从链表的特定位置移除一项
+            // removeAt(position)
+
+            // 从链表中移除一项
+            // remove(element)
+
+            // 如果链表中不包含任何元素,返回true,如果链表长度大于0则返回false
+            // isEmpty()
+
+            // 返回链表包含的元素个数,与数组的length属性类似
+            // size()
+
+            // 由于链表项使用了Node类,就需要重写继承自JavaScript对象默认的toString方法,让其只输出元素的值
+            // toString()
+        }
+    </script>
+</body>
+
+</html>
