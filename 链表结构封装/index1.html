@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双向链表</title>
+</head>
+
+<body>
+    <script>
+        class ListNode {
+            constructor(value) {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        class LinkedList {
+            constructor() {
+                this.head = null;
+                this.size = 0;
+            }
+            // 向链表尾部添加一个新的项
+            // append(element) 
+            append(element) {
+                let node = new ListNode(element);
+                if (this.head == null) {
+                    this.head = node;
+                } else {
+                    let current = this.head;
+                    while (current.next) {
+                        current = current.next;
+                    }
+                    current.next = node;
+                }
+                this.size++;
+            }
+
+            // 向链表的特定位置插入一个新的项
+            // insert(position, element)
+            insert(position, element) {
+                if (position < 0 || position > this.size) {
+                    return false;
+                }
+                let node = new ListNode(element);
+                if (position == 0) {
+                    node.next = this.head;
+                    this.head = node;
+                } else {
+                    let current = this.head; //current 为需要插入的位置
+                    let it = 0;
+                    let pre;
+                    while (it < position) {
+                        pre = current;
+                        current = current.next;
+                        it++;
+                    }
+                    pre.next = node;
+                    node.next = current;
+                }
+                this.size++;
+                return true;
+            }
+
+            // 获取对应位置的元素
+            // get(position)
+            get(position) {
+                if (position < 0 || position >= this.size) {
+                    return null;
+                }
+                let current = this.head;
+                let it = 0;
+                while (it < position) {
+                    current = current.next;
+                    it++;
+                }
+                return current;
+            }
+
+            // 返回元素在链表中的索引,如果链表中没有元素返回-1
+            // indexOf(element)
+            indexOf(element) {
+                let current = this.head;
+                let it = 0;
+                while (it < this.size) {
+                    if (current.value == element) {
+                        return it;
+                    }
+                    current = current.next;
+                    it++;
+                }
+                return -1;
+            }
+
+            // 修改某个位置的元素
+            // update(position, element)
+            update(position, element) {
+                if (position < 0 || position >= this.size) {
+                    return false;
+                }
+                let current = this.head;
+                let it = 0;
+                while (it < position) {
+                    current = current.next;
+                    it++;
+                }
+                current.value = element;
+                return true;
+            }
+
+            // 从链表的特定位置移除一项
+            // removeAt(position)
+            removeAt(position) {
+                if (position < 0 || position >= this.size) {
+                    return console.log('删除失败,请输入合法的位置')
+                }
+                if (position == 0) {
+                    this.head = this.head.next;
+                } else {
+                    let current = this.head;
+                    let pre = null;
+                    let it = 0;
+                    while (it < position) {
+                        pre = current;
+                        current = current.next;
+                        it++;
+                    }
+                    pre.next = current.next;
+                    current.next = null;
+                }
+                this.size--;
+                return true;
+            }
+
+            // 从链表中移除一项
+            // remove(element)
+            remove(element) {
+                let index = this.indexOf(element);
+                if (index == -1) return console.log('该元素不存在');
+                return this.removeAt(index);
+            }
+
+            // 如果链表中不包含任何元素,返回true,如果链表长度大于0则返回false
+            // isEmpty()
+            isEmpty() {
+                return this.size === 0;
+            }
+
+            // 返回链表包含的元素个数,与数组的length属性类似
+            // size()
+            size() {
+                return this.size;
+            }
+
+            // 由于链表项使用了Node类,就需要重写继承自JavaScript对象默认的toString方法,让其只输出元素的值
+            // toString()
+            toString() {
+                if (this.isEmpty()) {
+                    return '';
+                }
+                let current = this.head;
+                let resultString = `${current.value}`;
+                while (current.next) {
+                    current = current.next;
+                    resultString += `, ${current.value}`;
+                }
+                return resultString;
+            }
+        }
+
+        class DoublyLinkedList extends LinkedList {
+            constructor() {
+
+            }
+        }
+
+    </script>
+</body>
+
+</html>
