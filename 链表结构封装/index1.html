@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>双向链表</title>
+    <title>双链表</title>
 </head>
 
 <body>
@@ -169,12 +169,69 @@
             }
         }
 
-        class DoublyLinkedList extends LinkedList {
-            constructor() {
-
+        class DoublyListNode extends ListNode {
+            constructor(value) {
+                super(value);
+                this.prev = null;
             }
         }
 
+        class DoublyLinkedList extends LinkedList {
+            constructor() {
+                super();
+                this.tail = null;
+            }
+            // 向链表尾部添加一个新的项
+            // append(element)
+            append(element) {
+                let node = new DoublyListNode(element);
+                if (this.head == null) {
+                    this.head = node;
+                    this.tail = node;
+                } else {
+                    node.prev = this.tail;
+                    this.tail.next = node;
+                    this.tail = node;
+                }
+                this.size++;
+                return true;
+            }
+
+            // 向链表的特定位置插入一个新的项
+            // insert(position, element)
+
+            // 获取对应位置的元素
+            // get(position)
+
+            // 返回元素在链表中的索引,如果链表中没有元素返回-1
+            // indexOf(element)
+
+            // 修改某个位置的元素
+            // update(position, element)
+
+            // 从链表的特定位置移除一项
+            // removeAt(position)
+
+            // 从链表中移除一项
+            // remove(element)
+
+            // 如果链表中不包含任何元素,返回true,如果链表长度大于0则返回false
+            // isEmpty()
+            isEmpty() {
+                return this.size === 0;
+            }
+
+            // 返回链表包含的元素个数,与数组的length属性类似
+            // size()
+            size() {
+                return this.size;
+            }
+
+            // 由于链表项使用了Node类,就需要重写继承自JavaScript对象默认的toString方法,让其只输出元素的值
+            // toString()
+        }
+
+        const linkedList = new LinkedList();
     </script>
 </body>
 
