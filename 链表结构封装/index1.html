@@ -225,17 +225,69 @@
                 }
                 this.size++;
                 return true;
-
             }
 
             // 获取对应位置的元素
             // get(position)
+            get(position) {
+                if (position < 0 || position >= this.size) return null;
+                if (position <= this.size / 2) {
+                    let current = this.head;
+                    let index = 0;
+                    while (index < position) {
+                        current = current.next;
+                        index++;
+                    }
+                    return current.value;
+                } else {
+                    let current = this.tail;
+                    let index = this.size - 1;
+                    while (index > position) {
+                        current = current.prev;
+                        index--;
+                    }
+                    return current.value;
+                }
+            }
 
             // 返回元素在链表中的索引,如果链表中没有元素返回-1
             // indexOf(element)
+            indexOf(element) {
+                let current = this.head;
+                let index = 0;
+                while (index < this.size()) {
+                    if (current.value == element) {
+                        return index;
+                    }
+                    current = current.next;
+                    index++;
+                }
+                return -1;
+            }
 
             // 修改某个位置的元素
             // update(position, element)
+            update(position, element) {
+                if (position < 0 || position >= this.size) return false;
+                if (position <= this.size() / 2) {
+                    let current = this.head;
+                    let index = 0;
+                    while (index < position) {
+                        current = current.next;
+                        index++;
+                    }
+                    current.value = element;
+                } else {
+                    let current = this.tail;
+                    let index = this.size() - 1;
+                    while (index > position) {
+                        current = current.prev;
+                        index--;
+                    }
+                    current.value = element;
+                }
+                return true;
+            }
 
             // 从链表的特定位置移除一项
             // removeAt(position)
