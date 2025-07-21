@@ -149,7 +149,7 @@
 
             // 返回链表包含的元素个数,与数组的length属性类似
             // size()
-            size() {
+            getSize() {
                 return this.size;
             }
 
@@ -255,7 +255,7 @@
             indexOf(element) {
                 let current = this.head;
                 let index = 0;
-                while (index < this.size()) {
+                while (index < this.getSize()) {
                     if (current.value == element) {
                         return index;
                     }
@@ -269,7 +269,7 @@
             // update(position, element)
             update(position, element) {
                 if (position < 0 || position >= this.size) return false;
-                if (position <= this.size() / 2) {
+                if (position <= this.getSize() / 2) {
                     let current = this.head;
                     let index = 0;
                     while (index < position) {
@@ -279,7 +279,7 @@
                     current.value = element;
                 } else {
                     let current = this.tail;
-                    let index = this.size() - 1;
+                    let index = this.getSize() - 1;
                     while (index > position) {
                         current = current.prev;
                         index--;
@@ -291,9 +291,41 @@
 
             // 从链表的特定位置移除一项
             // removeAt(position)
+            removeAt(position) {
+                if (position < 0 || position >= this.getSize()) return false;
+                if (position < this.getSize() / 2) {
+                    let current = this.head;
+                    let index = 0;
+                    while (index < position) {
+                        current = current.next;
+                        index++;
+                    }
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev;
+                } else {
+                    let current = this.tail;
+                    let index = this.getSize() - 1;
+                    while (index > position) {
+                        current = current.prev;
+                        index--;
+                    }
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev;
+                }
+                this.size--;
+                return true;
+            }
 
             // 从链表中移除一项
             // remove(element)
+            remove(element) {
+                let index = this.indexOf(element);
+                if (index == -1) {
+                    return false;
+                } else {
+                    this.removeAt(index);
+                }
+            }
 
             // 如果链表中不包含任何元素,返回true,如果链表长度大于0则返回false
             // isEmpty()
@@ -303,15 +335,27 @@
 
             // 返回链表包含的元素个数,与数组的length属性类似
             // size()
-            size() {
-                return this.size;
-            }
+            // getSize() {
+            //     return this.size;
+            // }
 
             // 由于链表项使用了Node类,就需要重写继承自JavaScript对象默认的toString方法,让其只输出元素的值
             // toString()
+            toString() {
+                if (this.isEmpty()) {
+                    return ``;
+                }
+                let current = this.head;
+                let resultString = `${current.value}`;
+                while (current.next) {
+                    current = current.next;
+                    resultString += `,${current.value}`;
+                }
+                return resultString;
+            }
         }
-
-        const linkedList = new LinkedList();
+        const doublyLinkedList = new DoublyLinkedList();
+        // const linkedList = new LinkedList();
     </script>
 </body>
 
