@@ -98,6 +98,21 @@
                 }
                 return node.key;
             }
+
+            // 查询
+            search(key) {
+                let node = this.root;
+                while (node) {
+                    if (key < node.key) {
+                        node = node.left;
+                    } else if (key > node.key) {
+                        node = node.right;
+                    } else {
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
 
         let tree = new BinarySearchTree();
