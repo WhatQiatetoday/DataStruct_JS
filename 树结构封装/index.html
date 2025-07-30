@@ -77,26 +77,30 @@
                 }
             }
 
-            // 查找最小值
-            min() {
-                let node = this.root;
-                if (node == null) {
-                    return null;
-                }
+            minNode(node) {
+                if (node == null) return null;
                 while (node.left != null) {
                     node = node.left;
                 }
                 return node.key;
             }
 
-            // 查找最大值
-            max() {
-                let node = this.root;
+            maxNode(node) {
                 if (node == null) return null;
                 while (node.right) {
                     node = node.right;
                 }
                 return node.key;
+            }
+
+            // 查找最小值
+            min() {
+                this.minNode(this.root);
+            }
+
+            // 查找最大值
+            max() {
+                this.maxNode(this.root);
             }
 
             // 查询
@@ -121,8 +125,22 @@
                 } else if (key > node.key) {
                     node.right = this.removeNode(node.right, key);
                 } else {
+                    // 1.删除的节点是叶子节点
                     if (node.left == null && node.right == null) {
                         node = null;
+                    }
+                    // 2.删除的节点只有一个子节点
+                    if (node.left == null) {
+                        node = node.right;
+                    }
+                    if (node.right == null) {
+                        node = node.left;
+                    }
+                    // 3.删除的节点有两个子节点
+                    if (node.left && node.right) {
+                        let minNode = this.minNode(node.right);
+                        node.key = minNode;
+                        node.right = this.removeNode(node.right, minNode.key);
                     }
                 }
                 return node;
