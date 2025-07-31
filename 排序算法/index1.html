@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择排序</title>
+</head>
+
+<body>
+    <script>
+        // 用一个minIndex记录当前最小值的下标
+        function selectSort(arr) {
+            let { length } = arr;
+            for (let i = 0; i < length - 1; i++) {
+                let minIndex = i;
+                for (let j = i + 1; j < length; j++) {
+                    if (arr[j] < arr[minIndex]) {
+                        minIndex = j;
+                    }
+                }
+                if (minIndex !== i) {
+                    const temp = arr[i];
+                    arr[i] = arr[minIndex];
+                    arr[minIndex] = temp;
+                }
+            }
+            return arr
+        }
+    </script>
+</body>
+
+</html>
