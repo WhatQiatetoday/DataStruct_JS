@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快排</title>
+</head>
+
+<body>
+    <script>
+        function quickSort(arr) {
+            let { length } = arr;
+            if (length < 2) return arr;
+            let mid = Math.floor(length / 2);
+            let midValue = arr[mid];
+            let left = [];
+            let right = [];
+            let equal = [];
+            for (let i = 0; i < length; i++) {
+                if (arr[i] < midValue) {
+                    left.push(arr[i]);
+                } else if (arr[i] > midValue) {
+                    right.push(arr[i]);
+                } else {
+                    equal.push(arr[i]);
+                }
+            }
+            return [...quickSort(left), ...equal, ...quickSort(right)];
+        }
+    </script>
+</body>
+
+</html>
