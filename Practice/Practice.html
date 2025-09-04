@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice</title>
+</head>
+
+<body>
+    <script>
+        // 队列
+        class Queue {
+            // 队列结构的基本操作：
+            // enqueue(element) - 入队：向队列尾部添加一个元素
+            // dequeue() - 出队：移除并返回队列头部的元素
+            // front() - 查看队首：返回队列头部的元素但不移除
+            // isEmpty() - 判断队列是否为空
+            // size() - 获取队列的长度
+            // clear() - 清空队列
+            // toString() - 将队列转换为字符串表示
+
+            items = [];
+            constructor() {
+                this.items = [];
+            }
+
+            // 队列结构的基本操作：
+            // enqueue(element) - 入队：向队列尾部添加一个元素
+            enqueue(element) {
+                this.items.push(element);
+            }
+            // dequeue() - 出队：移除并返回队列头部的元素
+            dequeue() {
+                return this.items.shift();
+            }
+            // front() - 查看队首：返回队列头部的元素但不移除
+            front() {
+                return this.items[0];
+            }
+            // isEmpty() - 判断队列是否为空
+            isEmpty() {
+                return this.items.length === 0;
+            }
+            // size() - 获取队列的长度
+            size() {
+                return this.items.length;
+            }
+            // clear() - 清空队列
+            clear() {
+                this.items = [];
+            }
+            // toString() - 将队列转换为字符串表示
+            toString() {
+                return this.items.toString();
+            }
+        }
+
+        // 击鼓传花
+        function hotPotato(list, num) {
+            let queue = new Queue();
+            for (const v of list) {
+                queue.enqueue(v);
+            }
+            while (queue.size() > 1) {
+                for (let i = 0; i < num; i++) {
+                    queue.enqueue(queue.dequeue());
+                }
+                console.log('淘汰：', queue.front());
+                queue.dequeue();
+            }
+            return console.log('获胜者：', queue.front());
+        }
+        // let list = ['张三', '李四', '王五', '赵六', '钱七'];
+        // console.log(hotPotato(list, 7));
+
+
+
+        // 队列对象版
+        class QueueObj {
+            items = {};
+            count = 0;
+            lowestCount = 0;
+            constructor() {
+                this.items = {};
+                this.count = 0;
+                this.lowestCount = 0;
+            }
+
+            // 基于对象的队列结构操作：
+            // enqueue(element) - 入队：向队列尾部添加一个元素，this.items[this.count] = element; this.count++
+            // dequeue() - 出队：移除并返回队列头部的元素，const result = this.items[this.lowestCount]; delete this.items[this.lowestCount]; this.lowestCount++
+            // front() - 查看队首：返回队列头部的元素但不移除，return this.items[this.lowestCount]
+            // isEmpty() - 判断队列是否为空：return this.count === this.lowestCount
+            // size() - 获取队列的长度：return this.count - this.lowestCount
+            // clear() - 清空队列：重置items、count和lowestCount为初始状态
+            // toString() - 将队列转换为字符串表示
+            // 注：使用count记录队列尾部位置，lowestCount记录队列头部位置，items对象存储元素
+
+            // enqueue(element) - 入队：向队列尾部添加一个元素
+            enqueue(element) {
+                this.items[this.count] = element;
+                this.count++;
+            }
+
+            // dequeue() - 出队：移除并返回队列头部的元素
+            dequeue() {
+                const result = this.items[this.lowestCount];
+                delete this.items[this.lowestCount];
+                this.lowestCount++;
+                return result;
+            }
+
+            // front() - 查看队首：返回队列头部的元素但不移除
+            front() {
+                return this.items[this.lowestCount];
+            }
+
+            // isEmpty() - 判断队列是否为空
+            isEmpty() {
+                return this.count === this.lowestCount;
+            }
+
+            // size() - 获取队列的长度
+            size() {
+                return this.count - this.lowestCount;
+            }
+
+            // clear() - 清空队列
+            clear() {
+                this.items = {};
+                this.count = 0;
+                this.lowestCount = 0;
+            }
+        }
+
+        // 双端队列
+        class dequeue {
+            constructor() {
+                this.items = {};
+                this.count = 0;
+                this.lowestCount = 0;
+            }
+
+            // 双端队列（Deque）的操作：
+            // addFront(element) - 在队首添加元素：this.lowestCount--; this.items[this.lowestCount] = element
+            // addRear(element) - 在队尾添加元素：this.items[this.count] = element; this.count++
+            // removeFront() - 从队首移除元素：const result = this.items[this.lowestCount]; delete this.items[this.lowestCount]; this.lowestCount++
+            // removeRear() - 从队尾移除元素：this.count--; const result = this.items[this.count]; delete this.items[this.count]
+            // peekFront() - 查看队首元素：return this.items[this.lowestCount]
+            // peekRear() - 查看队尾元素：return this.items[this.count - 1]
+            // isEmpty() - 判断是否为空：return this.count === this.lowestCount
+            // size() - 获取队列长度：return this.count - this.lowestCount
+            // clear() - 清空队列：重置items、count和lowestCount
+            // toString() - 转换为字符串表示
+            // 注：双端队列可以在两端进行添加和删除操作，比普通队列更灵活
+
+            // addFront(element) - 在队首添加元素
+            addFromt(element) {
+                this.lowestCount--;
+                this.items[this.lowestCount] = element;
+            }
+
+            // addRear(element) - 在队尾添加元素
+            addRear(element) {
+                this.items[this.count] = element;
+                this.count++;
+            }
+
+            // removeFront() - 从队首移除元素
+            removeFront() {
+                const result = this.items[this.lowestCount];
+                delete this.items[this.lowestCount];
+                this.lowestCount++;
+                return result;
+            }
+
+            // removeRear() - 从队尾移除元素
+            removeRear() {
+                const result = this.items[this.count - 1];
+                delete this.items[this.count - 1];
+                this.count--;
+                return result;
+            }
+
+            // peekFront() - 查看队首元素
+            peekFront() {
+                return this.items[this.lowestCount];
+            }
+
+            // peekRear() - 查看队尾元素
+            peekRear() {
+                return this.items[this.count - 1];
+            }
+
+            // isEmpty() - 判断是否为空
+            isEmpty() {
+                return this.count === this.lowestCount;
+            }
+
+            // size() - 获取队列长度
+            size() {
+                return this.count - this.lowestCount;
+            }
+
+            // clear() - 清空队列
+            clear() {
+                this.items = {};
+                this.count = 0;
+                this.lowestCount = 0;
+            }
+        }
+
+        // 回文检测
+        function test(str) {
+            let queue = new dequeue();
+            str = str.toLocaleLowerCase().split(' ').join('');
+            for (const char of str) {
+                queue.addRear(char);
+            }
+            while (queue.size() > 1) {
+                if (queue.removeFront() !== queue.removeRear()) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        // 栈
+        class Stack {
+            constructor() {
+                this.items = [];
+            }
+
+            // 栈（Stack）的操作：
+            // push(element) - 入栈：向栈顶添加一个元素，this.items.push(element)
+            // pop() - 出栈：移除并返回栈顶元素，return this.items.pop()
+            // peek() - 查看栈顶：返回栈顶元素但不移除，return this.items[this.items.length - 1]
+            // isEmpty() - 判断栈是否为空：return this.items.length === 0
+            // size() - 获取栈的长度：return this.items.length
+            // clear() - 清空栈：this.items = []
+            // toString() - 将栈转换为字符串表示
+            // 注：栈遵循LIFO（Last In First Out）原则，后进先出
+
+            // push(element) - 入栈
+            push(element) {
+                this.items.push(element)
+            }
+
+            // pop() - 出栈
+            pop() {
+                return this.items.pop()
+            }
+
+            // peek() - 查看栈顶
+            peek() {
+                return this.items[this.items.length - 1]
+            }
+
+            // isEmpty() - 判断栈是否为空
+            isEmpty() {
+                return this.items.length === 0
+            }
+
+            // size() - 获取栈的长度
+            size() {
+                return this.items.length
+            }
+
+            // clear() - 清空栈
+            clear() {
+                this.items = []
+            }
+
+            // toString() - 将栈转换为字符串表示
+            toString() {
+                return this.items.toString().replace(/,/g, ' ');
+            }
+        }
+
+        // 十进制转换
+        function convert(decNumber) {
+            let stack = new Stack()
+            while (decNumber > 0) {
+                stack.push(decNumber % 2)
+                decNumber = Math.floor(decNumber / 2)
+            }
+            let result = ''
+            while (!stack.isEmpty()) {
+                result += stack.pop()
+            }
+            return result
+        }
+
+
+
+        // 链表
+        class ListNode {
+            constructor(value) {
+                this.value = value
+                this.next = null
+            }
+        }
+
+        class LinkedList {
+            constructor() {
+                this.head = null
+                this.size = 0
+            }
+
+            // 链表的操作：
+            // append(element) - 向链表末尾添加一个元素
+            // insert(position, element) - 向链表指定位置插入一个元素
+            // get(position) - 获取链表指定位置的元素
+            // indexOf(element) - 返回元素在链表中的索引，如果不存在则返回-1
+            // update(position, element) - 更新链表指定位置的元素
+            // removeAt(position) - 从链表指定位置移除一个元素
+            // remove(element) - 从链表中移除指定的元素
+            // isEmpty() - 判断链表是否为空
+            // size() - 获取链表的长度
+            // toString() - 将链表转换为字符串表示
+            // 注：链表的每个节点都包含一个值和指向下一个节点的引用
+
+            // append(element) - 向链表末尾添加一个元素
+            append(element) {
+                const newNode = new ListNode(element)
+                if (this.head) {
+                    let current = this.head
+                    while (current.next) {
+                        current = current.next
+                    }
+                    current.next = newNode
+                } else {
+                    this.head = newNode
+                }
+                this.size++
+            }
+
+            // insert(position, element) - 向链表指定位置插入一个元素
+            inset(position, element) {
+                if (position < 0 || position > this.size) return false
+                const newNode = new ListNode(element)
+                if (position == 0) {
+                    newNode.next = this.head
+                    this.head = newNode
+                } else {
+                    let current = this.head
+                    let index = 0
+                    let pre = null
+                    while (index < position) {
+                        pre = current
+                        current = current.next
+                        index++
+                    }
+                    pre.next = newNode
+                    newNode.next = current
+                }
+                this.size++
+                return true
+            }
+
+            // get(position) - 获取链表指定位置的元素
+            get(position) {
+                if (position < 0 || position > this.size - 1) return false
+                let current = this.head
+                let index = 0
+                while (index < position) {
+                    current = current.next
+                    index++
+                }
+                return current.value
+            }
+
+            // indexOf(element) - 返回元素在链表中的索引，如果不存在则返回-1
+            indexOf(element) {
+                let current = this.head
+                let index = 0
+                while (current.next) {
+                    if (current.value === element) {
+                        return index
+                    }
+                    current = current.next
+                    index++
+                }
+                return -1
+            }
+
+            // update(position, element) - 更新链表指定位置的元素
+            update(position, element) {
+
+            }
+        }
+    </script>
+</body>
+
+</html>
